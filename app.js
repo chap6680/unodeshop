@@ -3,7 +3,7 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 
-//const rootDir = require('/util/path');
+const errorController = require('./controllers/error');
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 //const adminRoutes = require('./routes/admin');
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 
@@ -27,27 +27,11 @@ app.use(express.static(path.join(__dirname,'public')));
 
 //by adding admin here, the routes in adminRoutes must be proceeded by admin in the url
 //app.use('/admin',adminRoutes);
-app.use('/admin',adminData.routes);
+app.use('/admin',adminRoutes.routes);
 app.use(shopRoutes);
 
 
-app.use((req, res, next)=> { 
-	console.log('in the midde part II - ');
-	
-	// original - hard coded hmtml
-	//	res.status(404).send('<h1>Page Not found</h1>');
-	
-	/*2nd - link to html, 2 ways dirname and rootDir
-	res.sendFile(path.join(__dirname, 'views', '404.html'));
-	/res.sendFile(path.join(rootDir,'views','404.html')
-	*/
-
-//	res.render('404', { docTitle: '404' });
-	res.status(404).render('404', {
-		path: '',
-		pageTitle: 'Page Not Found'
-	});
-});
+app.use(errorController.get404Page);
 
 
 app.listen(3000);
