@@ -8,7 +8,9 @@ const bodyParser = require('body-parser');
 const app = express();
 
 //reserved express "variables"
-app.set('view engine', 'pug');
+//app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
+
 
 //default location is views - so dont really need this but here to show incase it is in a different location
 app.set('views', 'views');
@@ -30,7 +32,7 @@ app.use(shopRoutes);
 
 
 app.use((req, res, next)=> { 
-	console.log('in the midde part II');
+	console.log('in the midde part II - ');
 	
 	// original - hard coded hmtml
 	//	res.status(404).send('<h1>Page Not found</h1>');
@@ -40,8 +42,11 @@ app.use((req, res, next)=> {
 	/res.sendFile(path.join(rootDir,'views','404.html')
 	*/
 
-	res.render('404', { docTitle: '404' });
-
+//	res.render('404', { docTitle: '404' });
+	res.status(404).render('404', {
+		path: '',
+		pageTitle: 'Page Not Found'
+	});
 });
 
 
