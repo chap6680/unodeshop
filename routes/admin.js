@@ -3,16 +3,20 @@ const path = require('path');
 const express = require('express');
 
 //const rootDir = require('../util/path');
-const productsController = require('../controllers/products');
+const adminController = require('../controllers/admin');
 
 const router = express.Router();
 
-//NOTE - THE ADMIN 'parent' folder is controlled on the app.js
+//NOTE - to get here the url must be proceded with admin. 
+//THE ADMIN 'parent' folder is controlled on the app.js
 // admin/add-product GET
-router.get('/add-product',productsController.getAddProduct);
+router.get('/add-product',adminController.getAddProduct);
 
 // admin/add-product Post
-router.post('/add-product',productsController.postAddProduct); 
+router.post('/add-product',adminController.postAddProduct); 
+
+// admin/add-product Post
+router.get('/products',adminController.getProducts); 
 
 
 //module.exports = router;
