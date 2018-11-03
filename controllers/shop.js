@@ -18,10 +18,18 @@ exports.getCart = (req, res, next) => {
 	res.render('shop/cart', {
 		pageTitle: 'Your Cart',
 		path: '/shop/cart',
-		pageTitle: 'All Products',
+		pageTitle: 'All Products'
 	});
 };
 
+exports.getOrders = (req, res, next) => {
+	/* ejs */
+	res.render('shop/orders', {
+		pageTitle: 'Your orders',
+		path: '/shop/orders',
+		pageTitle: 'Orders'
+	});
+};
 
 exports.getIndex = (req, res, next) => {
 	Product.fetchAll(products => {
